@@ -40,7 +40,6 @@ from tqdm import tqdm
 
 app = FastAPI()
 BASE_PATH = os.environ.get("BASE_PATH", "/")
-#DEBUG = os.environ.get("DEBUG", "/")
 DEBUG = os.getenv("DEBUG", "false").lower() == "true"
 
 
@@ -442,7 +441,6 @@ def createOrionEntity(orion_ld_endpoint, entity):
     h = {
         "Content-Type": "application/json",
         "Accept": "application/ld+json",
-        # "Fiware-Service": "hackathon",
         "Link": '<https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"',
     }
     # {"content-type": "application/json"}
@@ -475,14 +473,13 @@ async def json_test():
     dataset to a JSON output file.
     """
     df = pd.read_json('photo_posts_13_20251016104351.json', dtype={'id': str})
-    df['caption'] = ""         # or None, depending on your preference
+    df['caption'] = ""        
     df['similarity'] = 0.0     # initialize as float
     df.to_json('test_output.json', orient='records', lines=True)
 
 
 
 @app.post(f"{BASE_PATH}/image")
-# @app.post("/image")
 async def image_test():
     """Demonstrate the available Florence-2 image-understanding tasks.
 
@@ -640,7 +637,7 @@ async def json_input(subs: NotificationWrapper):
     
 
         # Add empty columns to hold caption and similarity values
-        df['caption'] = ""         # or None, depending on your preference
+        df['caption'] = ""        
         df['similarity'] = 0.0     # initialize as float
 
         for index, row in tqdm(df.iterrows(), total=len(df), desc="Processing images"):
@@ -727,7 +724,6 @@ if __name__ == "__main__":
 
     orion_ld_endpoint = (
         os.environ.get("BROKER_URL")
-        # "https://orion.tema.digital-enabler.eng.it"  # Orion-LD server endpoint
     )
 
     minio_client = MinioClient(endpoint, access_key, secret_key, secure=True)
