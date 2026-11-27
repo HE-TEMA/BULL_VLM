@@ -11,4 +11,3 @@ uvicorn
 torch
 pandas
 opencv-python
-requests
