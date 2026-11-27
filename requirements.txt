@@ -1,0 +1,13 @@
+requests
+pillow
+numpy
+transformers
+einops
+timm
+protobuf
+minio
+fastapi
+uvicorn
+torch
+pandas
+opencv-python
